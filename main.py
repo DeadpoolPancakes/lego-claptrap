@@ -1,16 +1,17 @@
 import sys
 import time
-import piconzero
+import piconzero as pz
 
-
-piconzero.forward(50)
+pz.init()
+pz.forward(50)
 time.sleep(3)
-piconzero.stop()
+pz.stop()
 time.sleep(1)
-piconzero.spinleft(50)
+pz.spinleft(50)
 time.sleep(1)
-piconzero.spinright(50)
+pz.spinright(50)
 time.sleep(1)
-piconzero.revers(50)
+pz.revers(50)
 time.slee(3)
-piconzero.stop()
+pz.stop()
+pz.cleanup()
