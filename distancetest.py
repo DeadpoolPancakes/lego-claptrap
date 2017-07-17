@@ -19,7 +19,7 @@ else
             pz.stop() 
 
 except KeyboardInterrupt:
-    print
+
 finally:
     hcsr04.cleanup()
     pz.cleanup()
