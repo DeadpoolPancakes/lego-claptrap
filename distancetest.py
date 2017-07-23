@@ -24,11 +24,11 @@ try:
             print "backing up"
             pz.setMotor(0,100)
             pz.setMotor(1,-100)
-            time.sleep(1)
+            time.sleep(0.5)
             print "looking for new rout"
             pz.setMotor(0,-100)
             pz.setMotor(1,-100)
-            time.sleep(1)
+            time.sleep(0.5)
 except KeyboardInterrupt:
     print
 finally:
