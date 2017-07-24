@@ -9,7 +9,7 @@ pz.init()
 try:
     while True:
         distance = int(hcsr04.getDistance())
-        while distance > 25:
+        while distance > 20:
             pz.setMotor(0,-100)
             pz.setMotor(1, 100)
             distance = int(hcsr04.getDistance())
