@@ -12,7 +12,6 @@ try:
         while distance > 25:
             pz.setMotor(0,-100)
             pz.setMotor(1, 100)
-            #pz.forward(100)
             distance = int(hcsr04.getDistance())
             print "Distance:", distance
             print "weeeeeeeee"
@@ -20,12 +19,12 @@ try:
         else:
             print "uhoh"
             pz.stop()
-            time.sleep(1)
-            print "backing up"
-            pz.setMotor(0,100)
-            pz.setMotor(1,-100)
             time.sleep(0.5)
-            print "looking for new rout"
+            print "backing up"
+            pz.setMotor(0,75)
+            pz.setMotor(1,-75)
+            time.sleep(0.5)
+            print "looking for new route"
             pz.setMotor(0,-100)
             pz.setMotor(1,-100)
             time.sleep(0.5)
