@@ -37,11 +37,13 @@ def api(direction, angle):
         return "{'error':'out of range'}"
 
     if direction == 'forward':
-        pz.forward(speed)
+        pz.setMotor(0,-speed)
+        pz.setMotor(1, speed)
         return "moving forward"
 
     elif direction == 'backward':
-        pz.backward(speed)
+        pz.setMotor(0,speed)
+        pz.setMotor(1,-speed)
         return "moving backward"
 
     return "{'error':'invalid direction'}"
