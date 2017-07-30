@@ -21,30 +21,32 @@ def home():
     return render_template('gui.html')
 
 @app.route('/api/stop')
-def api():
-    pz.stop()
+def stop():
+    pz.setMotor(0,0)
+    pz.setMotor(1,0)
+    return {"stop"}
 
 
 @app.route('/api/sensor/<sensorname>')
-def api(sensorname):
+def sensor(sensorname):
     if sensorname == 'distance':
         distance = int(hcsr04.getDistance())
         return "Distance:", distance
 
 @app.route('/api/<direction>/<int:speed>')
-def api(direction, angle):
+def direction(direction, speed):
     if speed < 0 or speed > 100:
         return "{'error':'out of range'}"
 
     if direction == 'forward':
         pz.setMotor(0,-speed)
         pz.setMotor(1, speed)
-        return "moving forward"
+        return {"moving forward"}
 
     elif direction == 'backward':
         pz.setMotor(0,speed)
         pz.setMotor(1,-speed)
-        return "moving backward"
+        return {"moving backward"}
 
     return "{'error':'invalid direction'}"
 
