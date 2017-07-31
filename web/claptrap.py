@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-
-import piconzero as pz, time
 from sys import exit
 import time
-import hcsr04, time
+import hcsr04
+import piconzero as pz
 
 hcsr04.init()
 pz.init()
@@ -20,36 +19,88 @@ app = Flask(__name__)
 def home():
     return render_template('gui.html')
 
+
 @app.route('/api/stop')
 def stop():
-    pz.setMotor(0,0)
-    pz.setMotor(1,0)
+    """define the stop endpoint"""
+    pz.stop()
     return {"stop"}
 
 
 @app.route('/api/sensor/<sensorname>')
 def sensor(sensorname):
+    """define the sensor endpoint"""
     if sensorname == 'distance':
         distance = int(hcsr04.getDistance())
-        return "Distance:", distance
+        return {"Distance:", distance}
+    if sensorname == 'light':
+        lightlevel = int(4)
+        return {"light level =", lightlevel}
+
+@app.route('/api/<action>')
+def action(action):
+    """define the action endpoint"""
+    speed = 100
+
+    if action == 'dance':
+        i = 0
+        while i < 4:
+            pz.forward(speed)
+            time.sleep(0.5)
+            pz.spinLeft(speed)
+            time.sleep(0.2)
+            pz.spinRight(speed)
+            time.sleep(0.2)
+            pz.spinLeft(speed)
+            time.sleep(0.2)
+            pz.spinRight(speed)
+            time.sleep(0.2)
+            pz.reverse(speed)
+            time.sleep(0.5)
+            i = i + 1
+            return "{Uhntssuhntssuhntss"
+        return "{I love a good dance}"
+
+    if action == 'twirl':
+        pz.spinLeft(speed)
+        time.sleep(1.5)
+        return{"weeee, oh i feel dizzy now"}
+
+    if action == 'wave':
+        return {"hellooooo"}
 
 @app.route('/api/<direction>/<int:speed>')
 def direction(direction, speed):
+    """define the direction endpoint"""
     if speed < 0 or speed > 100:
-        return "{'error':'out of range'}"
+        return "{'error':'speed out of range'}"
 
     if direction == 'forward':
-        pz.setMotor(0,-speed)
-        pz.setMotor(1, speed)
-        return {"moving forward"}
+        distance = int(hcsr04.getDistance())
+        if distance > 20:
+            pz.forward(speed)
+            time.sleep(0.5)
+            distance = int(hcsr04.getDistance())
+            return {"moving forward"}
+        else:
+            return {"There is something in the way"}
 
     elif direction == 'backward':
-        pz.setMotor(0,speed)
-        pz.setMotor(1,-speed)
+        pz.reverse(speed)
+        time.sleep(0.5)
         return {"moving backward"}
+
+    elif direction == 'left':
+        pz.spinLeft(speed)
+        time.sleep(0.5)
+        return {"rotating left"}
+
+    elif direction == 'right':
+        pz.spinRight(speed)
+        time.sleep(0.5)
+        return {"rotating right"}
 
     return "{'error':'invalid direction'}"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9595, debug=True)
-
