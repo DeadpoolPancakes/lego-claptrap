@@ -68,8 +68,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <ul class="main">
-                    <li class="up btn btn-default" data-action="up:-5"><i class="mdi mdi-arrow-up-bold mdi-48px"></i></li>
-                    <li class="down btn btn-default" data-action="down:+5"><i class="mdi mdi-arrow-down-bold mdi-48px"></i></li>
+                    <li class="up btn btn-default" data-action="forward:-5"><i class="mdi mdi-arrow-up-bold mdi-48px"></i></li>
+                    <li class="down btn btn-default" data-action="backward:+5"><i class="mdi mdi-arrow-down-bold mdi-48px"></i></li>
                     <li class="left btn btn-default" data-action="left:+5"><i class="mdi mdi-arrow-left-bold mdi-48px"></i></li>
                     <li class="right btn btn-default" data-action="right:-5"><i class="mdi mdi-arrow-right-bold mdi-48px"></i></li>
                 </ul>
@@ -103,13 +103,13 @@
                 switch (e.keyCode) {
                     case 87:
                     case 38: // Arrow Up
-                        direction = 'up';
+                        direction = 'forward';
                         distance = 5;
                         $.get('/api/' + direction + '/' + distance);
                         break;
                     case 83:
                     case 40: // Arrow Down
-                        direction = 'down';
+                        direction = 'backward';
                         distance = -5;
                         $.get('/api/' + direction + '/' + distance);
                         break;
@@ -126,12 +126,12 @@
                         $.get('/api/' + direction + '/' + distance);
                         break;
                     case 109:
-                        direction = 'forward';
+                        direction = 'ip';
                         distance = 5;
                         $.get('/api/' + direction + '/' + distance);
                         break;
                     case 107:
-                        direction = 'back';
+                        direction = 'down';
                         distance = -5;
                         $.get('/api/' + direction + '/' + distance);
                         break;

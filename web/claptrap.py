@@ -37,37 +37,6 @@ def sensor(sensorname):
         lightlevel = int(4)
         return {"light level =", lightlevel}
 
-@app.route('/api/<action>')
-def action(action):
-    """define the action endpoint"""
-    speed = 100
-
-    if action == 'dance':
-        i = 0
-        while i < 4:
-            pz.forward(speed)
-            time.sleep(0.5)
-            pz.spinLeft(speed)
-            time.sleep(0.2)
-            pz.spinRight(speed)
-            time.sleep(0.2)
-            pz.spinLeft(speed)
-            time.sleep(0.2)
-            pz.spinRight(speed)
-            time.sleep(0.2)
-            pz.reverse(speed)
-            time.sleep(0.5)
-            i = i + 1
-            return "{Uhntssuhntssuhntss"
-        return "{I love a good dance}"
-
-    if action == 'twirl':
-        pz.spinLeft(speed)
-        time.sleep(1.5)
-        return{"weeee, oh i feel dizzy now"}
-
-    if action == 'wave':
-        return {"hellooooo"}
 
 @app.route('/api/<direction>/<int:speed>')
 def direction(direction, speed):
@@ -101,6 +70,39 @@ def direction(direction, speed):
         return {"rotating right"}
 
     return "{'error':'invalid direction'}"
+
+@app.route('/api/<action>')
+def action(action):
+    """define the action endpoint"""
+    speed = 100
+
+    if action == 'dance':
+        i = 0
+        while i < 4:
+            pz.forward(speed)
+            time.sleep(0.5)
+            pz.spinLeft(speed)
+            time.sleep(0.2)
+            pz.spinRight(speed)
+            time.sleep(0.2)
+            pz.spinLeft(speed)
+            time.sleep(0.2)
+            pz.spinRight(speed)
+            time.sleep(0.2)
+            pz.reverse(speed)
+            time.sleep(0.5)
+            i = i + 1
+            return "{Uhntssuhntssuhntss"
+        return "{I love a good dance}"
+
+    if action == 'twirl':
+        pz.spinLeft(speed)
+        time.sleep(1.5)
+        return{"weeee, oh i feel dizzy now"}
+
+    if action == 'wave':
+        return {"hellooooo"}
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9595, debug=True)
