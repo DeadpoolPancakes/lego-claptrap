@@ -40,13 +40,10 @@ try:
                 print ("going left")
                 pz.setMotor(0,-75)
                 pz.setMotor(1, -75)
-                time.sleep(0.5)
+                time.sleep(1)
                 distance = int(hcsr04.getDistance())
             else:
                 print ("going right")
-                pz.setMotor(0,75)
-                pz.setMotor(1, 75)
-                time.sleep(0.5)
                 distance = int(hcsr04.getDistance())
 
 except KeyboardInterrupt:
