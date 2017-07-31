@@ -68,10 +68,10 @@
         <div class="row">
             <div class="col-xs-12">
                 <ul class="main">
-                    <li class="up btn btn-default" data-action="forward:-5"><i class="mdi mdi-arrow-up-bold mdi-48px"></i></li>
-                    <li class="down btn btn-default" data-action="backward:+5"><i class="mdi mdi-arrow-down-bold mdi-48px"></i></li>
-                    <li class="left btn btn-default" data-action="left:+5"><i class="mdi mdi-arrow-left-bold mdi-48px"></i></li>
-                    <li class="right btn btn-default" data-action="right:-5"><i class="mdi mdi-arrow-right-bold mdi-48px"></i></li>
+                    <li class="up btn btn-default" data-action="forward"><i class="mdi mdi-arrow-up-bold mdi-48px"></i></li>
+                    <li class="down btn btn-default" data-action="backward"><i class="mdi mdi-arrow-down-bold mdi-48px"></i></li>
+                    <li class="left btn btn-default" data-action="left"><i class="mdi mdi-arrow-left-bold mdi-48px"></i></li>
+                    <li class="right btn btn-default" data-action="right"><i class="mdi mdi-arrow-right-bold mdi-48px"></i></li>
                 </ul>
             </div>
             <div class="col-xs-12">
@@ -104,36 +104,30 @@
                     case 87:
                     case 38: // Arrow Up
                         direction = 'forward';
-                        distance = 5;
-                        $.get('/api/' + direction + '/' + distance);
+                        $.get('/api/' + direction);
                         break;
                     case 83:
                     case 40: // Arrow Down
                         direction = 'backward';
-                        distance = -5;
-                        $.get('/api/' + direction + '/' + distance);
+                        $.get('/api/' + direction);
                         break;
                     case 65:
                     case 37: // Arrow Left
                         direction = 'left';
-                        distance = 5;
-                        $.get('/api/' + direction + '/' + distance);
+                        $.get('/api/' + direction);
                         break;
                     case 68:
                     case 39: // Arrow Right
                         direction = 'right';
-                        distance = -5;
-                        $.get('/api/' + direction + '/' + distance);
+                        $.get('/api/' + direction);
                         break;
                     case 109:
                         direction = 'ip';
-                        distance = 5;
-                        $.get('/api/' + direction + '/' + distance);
+                        $.get('/api/' + direction);
                         break;
                     case 107:
                         direction = 'down';
-                        distance = -5;
-                        $.get('/api/' + direction + '/' + distance);
+                        $.get('/api/' + direction);
                         break;
                 }
             });
@@ -146,8 +140,7 @@
 
                     var obj = $(this);
                     var action = obj.data('action');
-                    direction = action.split(':')[0];
-                    distance = parseInt(action.split(':')[1]);
+                    direction = action;
 
                     interval = setInterval(pantilt, pantilt_speed);
                 })
@@ -160,8 +153,7 @@
 
                     var obj = $(this);
                     var action = obj.data('action');
-                    direction = action.split(':')[0];
-                    distance = parseInt(action.split(':')[1]);
+                    direction = action;
 
                     interval = setInterval(pantilt, pantilt_speed);
                 })
@@ -170,8 +162,7 @@
                 });
 
             function pantilt() {
-                angle = distance;
-                $.get('/api/' + direction + '/' + angle);
+                $.get('/api/' + direction);
             }
         });
     </script>
