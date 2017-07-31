@@ -38,12 +38,11 @@ def sensor(sensorname):
         return {"light level =", lightlevel}
 
 
-@app.route('/api/<direction>/<int:speed>')
-def direction(direction, speed):
+@app.route('/api/<direction>')
+def direction(direction):
     """define the direction endpoint"""
-    if speed < 0 or speed > 100:
-        return "{'error':'speed out of range'}"
-
+    speed = 100
+    
     if direction == 'forward':
         distance = int(hcsr04.getDistance())
         if distance > 20:
