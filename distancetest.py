@@ -22,24 +22,26 @@ try:
             time.sleep(0.5)
             print ("backing up")
             #back up
-            pz.setMotor(0,75)
-            pz.setMotor(1,-75)
-            time.sleep(0.3)
+            pz.setMotor(0,100)
+            pz.setMotor(1,-100)
+            time.sleep(0.5)
             print ("looking for new route")
             #rotate left and check distance
-            pz.setMotor(0,-75)
-            pz.setMotor(1, -75)
+            pz.setMotor(0,-100)
+            pz.setMotor(1, -100)
             time.sleep(0.5)
             distanceleft = int(hcsr04.getDistance())
+            print ("Distance left:", distanceleft)
             #rotate right and check distance
-            pz.setMotor(0,75)
-            pz.setMotor(1, 75)
+            pz.setMotor(0,100)
+            pz.setMotor(1, 100)
             time.sleep(1)
             distanceright = int(hcsr04.getDistance())
-            if distanceleft < distanceright:
+            print ("Distance right:", distanceright)
+            if distanceright < distanceleft:
                 print ("going left")
-                pz.setMotor(0,-75)
-                pz.setMotor(1, -75)
+                pz.setMotor(0,-100)
+                pz.setMotor(1, -100)
                 time.sleep(1)
                 distance = int(hcsr04.getDistance())
             else:
