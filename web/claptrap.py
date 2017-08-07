@@ -42,13 +42,13 @@ def sensor(sensorname):
 def direction(direction):
     """define the direction endpoint"""
     speed = 100
-    
     if direction == 'forward':
         distance = int(hcsr04.getDistance())
         if distance > 20:
             pz.forward(speed)
             time.sleep(0.5)
             distance = int(hcsr04.getDistance())
+            pz.stop()
             return {"moving forward"}
         else:
             return {"There is something in the way"}
@@ -56,16 +56,19 @@ def direction(direction):
     elif direction == 'backward':
         pz.reverse(speed)
         time.sleep(0.5)
+        pz.stop()
         return {"moving backward"}
 
     elif direction == 'left':
         pz.spinLeft(speed)
         time.sleep(0.5)
+        pz.stop()
         return {"rotating left"}
 
     elif direction == 'right':
         pz.spinRight(speed)
         time.sleep(0.5)
+        pz.stop()
         return {"rotating right"}
 
     return "{'error':'invalid direction'}"
@@ -91,8 +94,8 @@ def action(action):
             pz.reverse(speed)
             time.sleep(0.5)
             i = i + 1
-            return "{Uhntssuhntssuhntss"
-        return "{I love a good dance}"
+            return {"Uhntssuhntssuhntss"}
+        return {"I love a good dance"}
 
     if action == 'twirl':
         pz.spinLeft(speed)
