@@ -121,14 +121,6 @@
                         direction = 'right';
                         $.get('/api/' + direction);
                         break;
-                    case 109:
-                        direction = 'ip';
-                        $.get('/api/' + direction);
-                        break;
-                    case 107:
-                        direction = 'down';
-                        $.get('/api/' + direction);
-                        break;
                 }
             });
             $(window).on('keyup', function(e) {
@@ -142,7 +134,7 @@
                     var action = obj.data('action');
                     direction = action;
 
-                    interval = setInterval(pantilt, pantilt_speed);
+                    interval = setInterval(sendRequest, 50);
                 })
                 .on('mouseup', 'li', function(e) {
                     clearInterval(interval);
@@ -155,13 +147,13 @@
                     var action = obj.data('action');
                     direction = action;
 
-                    interval = setInterval(pantilt, pantilt_speed);
+                    interval = setInterval(sendRequest, 50);
                 })
                 .on('mouseup', 'button', function(e) {
                     clearInterval(interval);
                 });
 
-            function pantilt() {
+            function sendRequest() {
                 $.get('/api/' + direction);
             }
         });
