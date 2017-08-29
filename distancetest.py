@@ -1,6 +1,7 @@
 import sys
 import time
 import piconzero as pz
+import secondistance as sd
 import hcsr04, time
 
 hcsr04.init()
@@ -9,6 +10,7 @@ pz.init()
 try:
     while True:
         distance = int(hcsr04.getDistance())
+        rdistance = int(sd.getDistance())
         while distance > 20:
             pz.setMotor(0,-100)
             pz.setMotor(1, 100)
@@ -18,14 +20,21 @@ try:
             time.sleep(0.1)
         else:
             print ("uhoh")
+            i = 0
             pz.stop()
+            rdistance = int(sd.getDistance())
             time.sleep(0.5)
             print ("backing up")
             #back up
-            pz.setMotor(0,100)
-            pz.setMotor(1,-100)
-            time.sleep(0.5)
+            while rdistance > 20 or i < 5: 
+                rdistance = int(sd.getDistance())
+                pz.setMotor(0,100)
+                pz.setMotor(1,-100)
+                i = i + 1
+                time.sleep(0.1)
+            else    
             print ("looking for new route")
+            i = 0
             #rotate left and check distance
             pz.setMotor(0,-100)
             pz.setMotor(1, -100)
