@@ -14,15 +14,15 @@
 import RPi.GPIO as GPIO, sys, threading, time, os, subprocess
 
 # Define Sonar Pin (Uses same pin for both Ping and Echo)
-trigger = 18
-rec = 22
+trigger = 12
+rec = 15
 
 #======================================================================
 # General Functions
 #
 def init():
     GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
 
 def cleanup():
     GPIO.cleanup()
@@ -36,19 +36,19 @@ def testme():
 #
 # getDistance(). Returns the distance in cm to the nearest reflecting object. 0 == no object
 def getDistance():
-    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(trigger, GPIO.OUT)
     # Send 10us pulse to trigger
-    GPIO.output(18, True)
+    GPIO.output(trigger, True)
     time.sleep(0.00001)
-    GPIO.output(18, False)
+    GPIO.output(trigger, False)
     start = time.time()
     count=time.time()
-    GPIO.setup(22,GPIO.IN)
-    while GPIO.input(22)==0 and time.time()-count<0.1:
+    GPIO.setup(rec,GPIO.IN)
+    while GPIO.input(rec)==0 and time.time()-count<0.1:
         start = time.time()
     count=time.time()
     stop=count
-    while GPIO.input(22)==1 and time.time()-count<0.1:
+    while GPIO.input(rec)==1 and time.time()-count<0.1:
         stop = time.time()
     # Calculate pulse length
     elapsed = stop-start
