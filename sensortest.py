@@ -16,5 +16,5 @@ try:
 except KeyboardInterrupt:
     print ("exiting")
 finally:
-    secondistance.cleanup()
+    ds.cleanup()
       
