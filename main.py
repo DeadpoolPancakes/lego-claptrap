@@ -8,7 +8,7 @@ hcsr04.init()
 pz.init()
 sd.init()
 
-filename = "testfile.txt"
+filename = "log.txt"
 file = open(filename,"r+")
 
 
