@@ -3,10 +3,12 @@ import time
 import piconzero as pz
 import secondistance as sd
 import hcsr04, time
+import sensors as sens
 
 hcsr04.init()
 pz.init()
 sd.init()
+sens.init()
 
 filename = "log.txt"
 file = open(filename,"r+")
