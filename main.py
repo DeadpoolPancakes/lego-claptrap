@@ -12,19 +12,23 @@ filename = "log.txt"
 file = open(filename,"r+")
 left = 0
 right = 0
+f = 0
 
 try:
     while True:
         distance = int(hcsr04.getDistance())
         rdistance = int(sd.getDistance())
-        while distance > 30:
+        while distance > 25:
+            f = f + 1
             pz.setMotor(0,-100)
             pz.setMotor(1, 100)
             distance = int(hcsr04.getDistance())
-            file.write("forward")
-            print ("Distance:", distance)
-            print ("weeeeeeeee")
-            time.sleep(0.1)
+            if f == 100:
+                print ("Distance:", distance)
+                print ("weeeeeeeee")
+                file.write("forward\n")
+                f = 0
+            time.sleep(0.01)
         else:
             print ("uhoh")
             i = 0
