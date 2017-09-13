@@ -1,3 +1,3 @@
 import vlc
-p = vlc.MediaPlayer("file: E:\chirping.mp3")
+p = vlc.MediaPlayer("file: Chirping.mp3")
 p.play()
