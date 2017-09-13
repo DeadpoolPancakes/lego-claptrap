@@ -14,6 +14,8 @@ left = 0
 right = 0
 f = 0
 
+
+
 try:
     while True:
         distance = int(hcsr04.getDistance())
@@ -52,12 +54,14 @@ try:
                 pz.setMotor(1, -100)
                 time.sleep(1)
                 distanceleft = int(hcsr04.getDistance())
+                time.sleep(0.1)
                 print ("Distance left:", distanceleft)
                 #rotate right and check distance
                 pz.setMotor(0,100)
                 pz.setMotor(1, 100)
                 time.sleep(2)
                 distanceright = int(hcsr04.getDistance())
+                time.sleep(0.1)
                 print ("Distance right:", distanceright)
                 # if stuck in a loop of left right actions this should break it out of it
                 if left >= 5 and right >= 5:

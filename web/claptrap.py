@@ -40,7 +40,7 @@ def sensor(sensorname):
         return {"light level = ", lightlevel}
 
 
-@app.route('/api/<direction>')
+@app.route('/api/move/<direction>')
 def direction(direction):
     """define the direction endpoint"""
     speed = 100
@@ -78,7 +78,7 @@ def direction(direction):
 
     return "{'error':'invalid direction'}"
 
-@app.route('/api/<action>')
+@app.route('/api/action/<action>')
 def action(action):
     """define the action endpoint"""
     speed = 100
@@ -109,7 +109,6 @@ def action(action):
 
     if action == 'wave':
         return {"hellooooo"}
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9595, debug=True)
