@@ -3,9 +3,11 @@ from sys import exit
 import time
 import hcsr04
 import piconzero as pz
+import secondistance as sd
 
 hcsr04.init()
 pz.init()
+sd.init()
 
 try:
     from flask import Flask, render_template
@@ -35,7 +37,7 @@ def sensor(sensorname):
         return {"Distance:", distance}
     if sensorname == 'light':
         lightlevel = int(4)
-        return {"light level =", lightlevel}
+        return {"light level = ", lightlevel}
 
 
 @app.route('/api/<direction>')
@@ -47,17 +49,20 @@ def direction(direction):
         if distance > 20:
             pz.forward(speed)
             time.sleep(0.5)
-            distance = int(hcsr04.getDistance())
             pz.stop()
             return {"moving forward"}
         else:
             return {"There is something in the way"}
 
     elif direction == 'backward':
-        pz.reverse(speed)
-        time.sleep(0.5)
-        pz.stop()
-        return {"moving backward"}
+        rdistance = int(sd.getDistance())
+        if rdistance > 20
+            pz.reverse(speed)
+            time.sleep(0.5)
+            pz.stop()
+            return {"moving backward"}
+        else:
+            return {"There is something in the way"}
 
     elif direction == 'left':
         pz.spinLeft(speed)
