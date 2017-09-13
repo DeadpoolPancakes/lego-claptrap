@@ -1,16 +1,18 @@
 import RPi.GPIO as GPIO, sys, threading, time, os, subprocess
+from gpiozero import LightSensor, Buzzer, LED
 
-lights = 12
-ldr = 13
+lights = LED(12)
+ldr = LightSensor(14)
 
 
 
 def init():
     GPIO.setup(lights,GPIO.OUT)
-    GPIO.setup(ldr, GPIO.IN)
 
-def getlights(self, state):
+def setlights(self, state):
     if state == 'on':
-        GPIO.output(lights, True) 
+        lights.on() 
     else:
-        GPIO.output(lights, False)    
+        lights.off()   
+def getLightLevel(self):
+   return ldr.value

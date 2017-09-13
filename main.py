@@ -16,8 +16,6 @@ left = 0
 right = 0
 f = 0
 
-
-
 try:
     while True:
         distance = int(hcsr04.getDistance())
