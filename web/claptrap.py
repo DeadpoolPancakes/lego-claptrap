@@ -3,9 +3,11 @@ from sys import exit
 import time
 import hcsr04
 import piconzero as pz
+import secondistance as sd
 
 hcsr04.init()
 pz.init()
+sd.init()
 
 try:
     from flask import Flask, render_template
@@ -35,10 +37,10 @@ def sensor(sensorname):
         return {"Distance:", distance}
     if sensorname == 'light':
         lightlevel = int(4)
-        return {"light level =", lightlevel}
+        return {"light level = ", lightlevel}
 
 
-@app.route('/api/<direction>')
+@app.route('/api/move/<direction>')
 def direction(direction):
     """define the direction endpoint"""
     speed = 100
@@ -47,17 +49,20 @@ def direction(direction):
         if distance > 20:
             pz.forward(speed)
             time.sleep(0.5)
-            distance = int(hcsr04.getDistance())
             pz.stop()
             return {"moving forward"}
         else:
             return {"There is something in the way"}
 
     elif direction == 'backward':
-        pz.reverse(speed)
-        time.sleep(0.5)
-        pz.stop()
-        return {"moving backward"}
+        rdistance = int(sd.getDistance())
+        if rdistance > 20
+            pz.reverse(speed)
+            time.sleep(0.5)
+            pz.stop()
+            return {"moving backward"}
+        else:
+            return {"There is something in the way"}
 
     elif direction == 'left':
         pz.spinLeft(speed)
@@ -73,7 +78,7 @@ def direction(direction):
 
     return "{'error':'invalid direction'}"
 
-@app.route('/api/<action>')
+@app.route('/api/action/<action>')
 def action(action):
     """define the action endpoint"""
     speed = 100
@@ -104,7 +109,6 @@ def action(action):
 
     if action == 'wave':
         return {"hellooooo"}
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9595, debug=True)
